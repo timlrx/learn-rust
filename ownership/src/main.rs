@@ -17,6 +17,19 @@ fn main() {
     let mut s3 = String::from("hello");
     let length3 = calculate_length_3(&mut s3);
     println!("The length of '{}' is {}", s3, length3);
+
+    let mut v: Vec<i32> = vec![1, 2, 3];
+    let num: &i32 = &v[2];
+    println!("Here's v {}", v[2]); // Since num is an immutable reference, v still has read permission
+    println!("Third element of v is {}", *num); // Ownership is returned to v
+    v.push(4);
+
+    let mut v2: Vec<i32> = vec![1, 2, 3];
+    let num2: &mut i32 = &mut v2[2];
+    // println!("Here's v2 {}", v2[2]); // Since num2 is a mutable reference, it allows mutation, but no aliasing
+    *num2 = 4;
+    println!("Third element of v2 is {}", *num2); // Ownership is returned to v2
+    v2.push(4);
 }
 
 fn calculate_length_1(s: String) -> usize {

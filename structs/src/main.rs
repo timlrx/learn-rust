@@ -1,3 +1,4 @@
+#[derive(Debug)]
 struct User {
     active: bool,
     username: String,
@@ -5,6 +6,28 @@ struct User {
     sign_in_count: u64,
 }
 
+impl User {
+    // &self is a reference to the instance of the struct
+    fn username(&self) -> &String {
+        &self.username
+    }
+
+    fn add_to_sign_in_count(&mut self) {
+        self.sign_in_count += 1;
+    }
+
+    // Associated function - Self is an alias for the type that appears after the impl keyword
+    fn new_user(username: String, email: String) -> Self {
+        Self {
+            active: true,
+            username,
+            email,
+            sign_in_count: 0,
+        }
+    }
+}
+
+#[derive(Debug)]
 struct Color(i32, i32, i32);
 
 fn main() {
@@ -24,9 +47,18 @@ fn main() {
         ..user1 // Copy the rest of the fields from user1
     };
     // println!("{}", user1.email); // Email is not copied, but moved from user1 to user2
-    println!("{}", user1.sign_in_count);
-    println!("{}", user2.email);
+    println!("user2: {user2:#?}");
 
     let col = Color(128, 128, 128);
-    println!("{}", col.0);
+    println!("{col:?}");
+
+    user2.add_to_sign_in_count();
+    println!("user2 username: {}", user2.username());
+    println!("sign in counter: {}", user2.sign_in_count);
+
+    let user3 = User::new_user(
+        String::from("newuser789"),
+        String::from("example@example.com"),
+    );
+    println!("user3: {user3:#?}");
 }
