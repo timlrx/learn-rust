@@ -51,3 +51,28 @@ struct Foo<'a> {
 fn baz<'a>(f: &Foo<'a>) -> &'a i32 {
     f.bar
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_longest() {
+        let string1 = String::from("abcd");
+        let string2 = "xyz";
+
+        let result = longest(string1.as_str(), string2);
+        assert_eq!(result, "abcd");
+        assert!(result == "abcd");
+    }
+
+    #[test]
+    fn another() {
+        let string1 = String::from("long string is long");
+        {
+            let string2 = String::from("xyz");
+            let result = longest(string1.as_str(), string2.as_str());
+            assert_eq!(result, "xyz", "The longest string is `{}`", result);
+        }
+    }
+}
